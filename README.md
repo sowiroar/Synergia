@@ -1,2 +1,2 @@
 # Céfiro
-Céfiro is an air quality monitoring project that integrates environmental sensors, embedded systems and machine learning models to predict and analyze atmospheric conditions in the city of Manizales.
+Céfiro is an air quality monitoring project that integrates environmental sensors, embedded systems and machine learning models to predict and analyze atmospheric conditions in the city of Manizales. The project collects data on variables such as temperature, humidity, CO2 concentration and air quality to generate reports and visualizations on the environmental status in real time and over time.
