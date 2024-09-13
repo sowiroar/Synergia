@@ -1,0 +1,6 @@
+# Objetives
+General Objective
+To develop an intelligent air quality monitoring system for controlled environments. 
+Specific objective: Develop the electronic circuitry and design the PCB to ensure accurate measurement of key air quality parameters in the first working prototype.
+Specific objective: Evaluate the power consumption of the system, perform tests to capture air quality data and display it on a graphical interface. 
+Specific objective: Implement the prototype on PCB and the predictive model to forecast future parameters.
