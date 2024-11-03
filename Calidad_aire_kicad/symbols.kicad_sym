@@ -358,6 +358,24 @@
 					)
 				)
 			)
+			(pin unspecified line
+				(at 13.97 6.35 180)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
 		)
 	)
 	(symbol "MQ_135"

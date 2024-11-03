@@ -1,4 +1,4 @@
-23745269560713967
+23755652558920603
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -96628,6 +96628,13 @@ Varistor VF
 2
 2
 footprint_project
+DHT22
+
+
+0
+3
+3
+footprint_project
 ESP32_DEVKIT1
 
 
@@ -96635,9 +96642,44 @@ ESP32_DEVKIT1
 30
 30
 footprint_project
+MH_Z19B
+
+
+0
+0
+0
+footprint_project
+MQ_135
+
+
+0
+4
+4
+footprint_project
+OLED_128064
+
+
+0
+4
+4
+footprint_project
+conv_niv_log
+
+
+0
+12
+11
+footprint_project
 header_4pos_1row
 
 
 0
+4
+4
+footprint_project
+microSD
+
+
 0
-0
+6
+6
