@@ -68,6 +68,17 @@
 	)
 	(attr through_hole)
 	(fp_rect
+		(start -1.68 -5.46)
+		(end 17.72 5.92)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "1e87be30-f2b9-4224-851f-32ab1bfc8a1d")
+	)
+	(fp_rect
 		(start -1.74 -5.5)
 		(end 17.8 6)
 		(stroke
@@ -75,8 +86,19 @@
 			(type default)
 		)
 		(fill none)
-		(layer "Margin")
+		(layer "F.CrtYd")
 		(uuid "4b8846c2-df8d-4674-91af-dd6ca2bec6e1")
+	)
+	(fp_rect
+		(start -1.62 -5.4)
+		(end 17.65 5.85)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "b446802c-bea3-484b-a399-68d5ec2218da")
 	)
 	(pad "1" thru_hole circle
 		(at 0 4.18)

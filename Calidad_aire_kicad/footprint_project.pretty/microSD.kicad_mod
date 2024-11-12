@@ -68,6 +68,17 @@
 	)
 	(attr through_hole)
 	(fp_rect
+		(start -1.66 -5.96)
+		(end 1.71 10.83)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "d5c1b36b-8530-462d-9058-c913697bc6ad")
+	)
+	(fp_rect
 		(start -1.74 -6.02)
 		(end 1.8 10.92)
 		(stroke
@@ -75,8 +86,19 @@
 			(type default)
 		)
 		(fill none)
-		(layer "Margin")
+		(layer "F.CrtYd")
 		(uuid "355da4ea-c0c1-40f1-b61b-bf5d494e7981")
+	)
+	(fp_rect
+		(start -1.62 -5.9)
+		(end 1.64 10.75)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "9d490444-434a-4809-a4d3-53bf09c7da81")
 	)
 	(fp_text user "${REFERENCE}"
 		(at -0.13 13.37 0)

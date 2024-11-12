@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 1.02,
-          "height": 1.53,
-          "width": 1.53
+          "drill": 1.52,
+          "height": 3.0,
+          "width": 3.0
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -466,7 +466,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "Calidad_aire.net",
-      "plot": "",
+      "plot": "./",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

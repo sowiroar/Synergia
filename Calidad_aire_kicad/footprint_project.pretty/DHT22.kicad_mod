@@ -18,7 +18,7 @@
 	(property "Value" "DHT22"
 		(at -0.03 -5.54 0)
 		(unlocked yes)
-		(layer "F.Fab")
+		(layer "F.SilkS")
 		(uuid "ad69d60a-c2c8-4bd3-a477-d311a9de3879")
 		(effects
 			(font
@@ -68,6 +68,17 @@
 	)
 	(attr through_hole)
 	(fp_rect
+		(start -1.69 -4.46)
+		(end 1.56 4.39)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "cd0f57c2-9927-466f-bf5c-793c70c4a7b3")
+	)
+	(fp_rect
 		(start -1.83 -4.6)
 		(end 1.71 4.55)
 		(stroke
@@ -75,20 +86,8 @@
 			(type default)
 		)
 		(fill none)
-		(layer "Margin")
+		(layer "F.CrtYd")
 		(uuid "34d0a6e7-2609-4557-8da7-5090d789c6a7")
-	)
-	(fp_text user "${REFERENCE}"
-		(at -0.03 7.26 0)
-		(unlocked yes)
-		(layer "F.Fab")
-		(uuid "01b43b10-1185-40a6-9f36-6170471ca400")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-		)
 	)
 	(pad "1" thru_hole circle
 		(at -0.09 -2.5)
