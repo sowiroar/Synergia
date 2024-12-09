@@ -26,6 +26,7 @@
 //Conexión MQTT
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 
 //Date
 #include <TimeLib.h>
@@ -179,7 +180,7 @@ PMS pms(pmsSerial);  ///< PMS5003 object using Serial2
 PMS::DATA data;    ///< Data object to store the sensor readings
 
 //Definción de variables para almacenar datos
-int pm1;
+int pm1=1;
 int pm2;
 int pm10;
 
@@ -203,7 +204,8 @@ int8_t temperature;
 
 const char* ssid = "POCOPro";
 const char* password = "12345678";
-const char* mqtt_server = "test.mosquitto.org";
+const char* mqtt_server = "2.tcp.ngrok.io";
+const int port = 15488;
 WiFiClient espClient;
 PubSubClient client(espClient);
 unsigned long lastMsg = 0;
@@ -247,6 +249,7 @@ void errorSD();
 void SDbien();
 void obtener_fecha();
 void print_wakeup_reason();
+void sendSensorData();
 
 // Función para conectar a WiFi
 void setup_wifi() {
@@ -306,64 +309,12 @@ void reconnect() {
   }
 }
 
-// Enviar datos de los sensores de forma independiente a través de MQTT
-void sendSensorData() {
-  // Humedad
-  snprintf(msg, MSG_BUFFER_SIZE, "%.2f", hum);
-  client.publish("humidity", msg);
-  Serial.print("Humedad (%): ");
-  Serial.println(hum);
-  
-  // Temperatura DHT22
-  snprintf(msg, MSG_BUFFER_SIZE, "%.2f", tem);
-  client.publish("temperature", msg);
-  Serial.print("Temperatura DHT22 (°C): ");
-  Serial.println(tem);
 
-  // Temperatura MH-Z19B
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", temperature);
-  client.publish("temperature2", msg);
-  Serial.print("Temperatura MH-Z19B (°C): ");
-  Serial.println(temperature);
-  
-  // Nivel de CO2
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", co2Level);
-  client.publish("co2", msg);
-  Serial.print("Nivel de CO2 (ppm): ");
-  Serial.println(co2Level);
-  
-  // Valor del Sensor MQ135
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", sensorValue);
-  client.publish("mq135", msg);
-  Serial.print("Sensor MQ135 (Digital): ");
-  Serial.println(sensorValue);
-  
-  // Partículas PM1.0
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm1);
-  client.publish("pm1", msg);
-  Serial.print("PM1.0 (µg/m³): ");
-  Serial.println(pm1);
-  
-  // Partículas PM2.5
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm2);
-  client.publish("pm2.5", msg);
-  Serial.print("PM2.5 (µg/m³): ");
-  Serial.println(pm2);
-  
-  // Partículas PM10
-  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm10);
-  client.publish("pm10", msg);
-  Serial.print("PM10 (µg/m³): ");
-  Serial.println(pm10);
-  
-  Serial.println("---------------------------");
-  Serial.println("Datos de sensores publicados");
-}
 
 
 void setup() {
  Serial.begin(9600);
-
+  
   //------------------------DEEP SLEEP--------------------------------
   //Increment boot number and print it every reboot
   ++bootCount;
@@ -389,6 +340,7 @@ void setup() {
   display.setCursor(0, 10);
   display.print("INICIANDO \n SISTEMA...");
   display.display(); 
+  
   delay(2000);
 
   //--------------------------------SD-----------------------------------------
@@ -437,8 +389,9 @@ void setup() {
 
   pinMode(BUILTIN_LED, OUTPUT);     // Inicializar el pin del LED integrado como salida
   setup_wifi();
-  client.setServer(mqtt_server, 1883);
+  client.setServer(mqtt_server, port);
   client.setCallback(callback);
+  
 
     //---------------------------------------DATE-------------------------------------------------
   // Configuración de la hora
@@ -481,7 +434,21 @@ void loop() {
     lastMsg = now;
     sendSensorData(); // Enviar los valores simulados de los sensores
   }
+  if(bootCount % 6 == 0){
+    //modelo
+  JsonDocument doc;
+  doc["Temp"] = tem;
+  doc["Hum"] = hum;
+  doc["CO2"] = co2Level;
 
+  String jsonString;
+  serializeJson(doc, jsonString);
+
+  //snprintf(msg, MSG_BUFFER_SIZE, "%s", jsonString);
+  client.publish("modelo", jsonString.c_str());
+  }
+
+  
   Serial.println("Going to sleep now");
   delay(1000);
   Serial.flush(); 
@@ -688,4 +655,60 @@ void print_wakeup_reason(){
     case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
+}
+
+// Enviar datos de los sensores de forma independiente a través de MQTT
+void sendSensorData() {
+  // Humedad
+  snprintf(msg, MSG_BUFFER_SIZE, "%.2f", hum);
+  client.publish("humidity", msg);
+  Serial.print("Humedad (%): ");
+  Serial.println(hum);
+  
+  // Temperatura DHT22
+  snprintf(msg, MSG_BUFFER_SIZE, "%.2f", tem);
+  client.publish("temperature", msg);
+  Serial.print("Temperatura DHT22 (°C): ");
+  Serial.println(tem);
+
+  // Temperatura MH-Z19B
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", temperature);
+  client.publish("temperature2", msg);
+  Serial.print("Temperatura MH-Z19B (°C): ");
+  Serial.println(temperature);
+  
+  // Nivel de CO2
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", co2Level);
+  client.publish("co2", msg);
+  Serial.print("Nivel de CO2 (ppm): ");
+  Serial.println(co2Level);
+  
+  // Valor del Sensor MQ135
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", sensorValue);
+  client.publish("mq135", msg);
+  Serial.print("Sensor MQ135 (Digital): ");
+  Serial.println(sensorValue);
+  
+  // Partículas PM1.0
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm1);
+  client.publish("pm1", msg);
+  Serial.print("PM1.0 (µg/m³): ");
+  Serial.println(pm1);
+  
+  // Partículas PM2.5
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm2);
+  client.publish("pm2.5", msg);
+  Serial.print("PM2.5 (µg/m³): ");
+  Serial.println(pm2);
+  
+  // Partículas PM10
+  snprintf(msg, MSG_BUFFER_SIZE, "%.d", pm10);
+  client.publish("pm10", msg);
+  Serial.print("PM10 (µg/m³): ");
+  Serial.println(pm10);
+
+  
+  
+  Serial.println("---------------------------");
+  Serial.println("Datos de sensores publicados");
 }
