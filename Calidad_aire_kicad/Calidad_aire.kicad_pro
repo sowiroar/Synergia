@@ -466,7 +466,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "Calidad_aire.net",
-      "plot": "./",
+      "plot": "Gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
