@@ -204,8 +204,8 @@ int8_t temperature;
 
 const char* ssid = "POCOPro";
 const char* password = "12345678";
-const char* mqtt_server = "2.tcp.ngrok.io";
-const int port = 15488;
+const char* mqtt_server = "4.tcp.ngrok.io";
+const int port = 13271;
 WiFiClient espClient;
 PubSubClient client(espClient);
 unsigned long lastMsg = 0;
